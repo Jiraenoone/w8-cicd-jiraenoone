@@ -13,3 +13,11 @@ Green pipeline ยืนยันได้เพียงว่าโค้ด�
 
 5. หาก test ผ่านแต่ application ใช้งานจริงไม่ได้ ควรเพิ่ม test หรือ pipeline stage ใด?
 หากชุดทดสอบผ่านแต่แอปพลิเคชันใช้งานจริงไม่ได้ ควรเพิ่มการทดสอบแบบ Integration Test เพื่อตรวจสอบการเชื่อมต่อกับระบบภายนอก เพิ่มการทดสอบแบบ End-to-End Test ในการจำลองพฤติกรรมการใช้งานของผู้ใช้จริงบนเบราว์เซอร์ พร้อมทั้งเพิ่มขั้นตอน Smoke Test หรือ Health Check หลังจากทำการปรับแต่งสภาพแวดล้อมระบบเพื่อตรวจสอบการตั้งค่าและเช็กว่าแอปพลิเคชันเปิดทำงานได้จริงหรือไม่
+
+Extension Choice: Option 2 - Add a Node.js Version Matrix
+
+Implementation: เพิ่ม Matrix Strategy ใน Workflow เพื่อรันการทดสอบบน Node.js เวอร์ชัน 18.x และ 20.x
+
+Compatibility Protection: Matrix ช่วยตรวจจับ Breaking Changes หรือ Deprecated APIs ระหว่าง Node.js แต่ละเวอร์ชัน ทำให้มั่นใจว่า โค้ดสามารถทำงานได้บนสภาพแวดล้อมที่ต่างกันก่อนนำไป Deploy จริง
+
+Result: GitHub Actions สร้าง job ย่อยเพื่อรันควบคู่กัน (Parallel Jobs) และผ่านการทดสอบทั้งหมดทั้งสองเวอร์ชัน
